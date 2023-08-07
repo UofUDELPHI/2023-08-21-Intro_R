@@ -4,7 +4,7 @@
 
 ## Website location
 
-The website for this workshop has been rendered here: [https://uofudelphi.github.io/2023-05-17-Intro_R/](https://uofudelphi.github.io/2023-05-17-Intro_R/)
+The website for this workshop has been rendered here: [https://uofudelphi.github.io/2023-08-21-Intro_R/](https://uofudelphi.github.io/2023-05-17-Intro_R/)
 
 ## Modifying the lessons
 
