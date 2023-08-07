@@ -3,7 +3,7 @@ project:
 
 book:
   title: "Software Carpentry R Workshop"
-  subtitle: "University of Utah, May 17-18"
+  subtitle: "University of Utah, August 21-22"
   chapters:
     - index.qmd
     - 01-rstudio-quarto.qmd

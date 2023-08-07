@@ -3,7 +3,7 @@
 [Workshop homepage](https://uofudelphi.github.io/2023-08-21-Intro_R/)
 
 
-This page contains the content for the R [Software Carpentry](https://www.google.com/search?q=software+carpentry&oq=software+carpentry+&aqs=chrome..69i57j69i59l3j35i39j69i61l3.4031j0j7&sourceid=chrome&ie=UTF-8) workshop taught at the University of Utah on May 21-22.
+This page contains the content for the R [Software Carpentry](https://www.google.com/search?q=software+carpentry&oq=software+carpentry+&aqs=chrome..69i57j69i59l3j35i39j69i61l3.4031j0j7&sourceid=chrome&ie=UTF-8) workshop taught at the University of Utah on August 21-22.
 
 
 **Instructors**: Rebecca Barter, George Vega Yon
