@@ -36,37 +36,6 @@ To change a single element, use the bracket on the other side of the arrow:
  
  
 
-
-
-### Accessing elements using their indices
-
-Define a new vector, `x`:
-
-```{r}
-# define a vector x containing the values 5.4, 6.2, 7.1, 4.8, and 7.5
-
-# print out x
-
-```
-
-
-
-To extract elements of a vector we can give their corresponding index:
-
-```{r}
-# extract the first entry of x
-
-```
-
-```{r}
-# extract the fourth entry of x
-
-```
-
-
-
-
-
 ### Extracting multiple elements at once
 
 We can ask for multiple elements at once by providing a *vector* of indices:
@@ -76,7 +45,12 @@ We can ask for multiple elements at once by providing a *vector* of indices:
 
 ```
 
+You can ask for the same element multiple times:
 
+```{r}
+# extract the first, first and third element from x using `c()`
+
+```
 
 
 
@@ -84,20 +58,11 @@ We can ask for multiple elements at once by providing a *vector* of indices:
 Or "slices" of the vector using a sequential integer vector index:
 
 ```{r}
-# extract the first to fourth element of x using a vector created with `:`
+# extract the first four elements of x using a vector created with `:`
 
 ```
 
 
-
-
-
-You can ask for the same element multiple times:
-
-```{r}
-# extract the first, first and third element from x using `c()`
-
-```
 
 
 
@@ -116,14 +81,6 @@ If you ask for an index beyond the length of the vector, R will return a missing
 
 
 
-If you ask for the 0th element, you get an empty vector:
-
-```{r}
-# extract the 0th element from x
-
-```
-
-
 
 
 
@@ -140,7 +97,7 @@ If you use a negative number as the index of a vector, R will return every eleme
 We can remove multiple elements:
 
 ```{r}
-# remove the first and fifth elements from x in two ways:
+# remove the first and fifth elements from x
 
 ```
 
@@ -150,7 +107,6 @@ We can remove multiple elements:
 
 
 ### Order of operations
-
 
 It's natural to try to negate a sequence like `-1:3` (this should give an error):
 
@@ -170,8 +126,6 @@ Why didn't this work?
 ```
 
 
-
-
 The correct solution is to wrap `1:3` in brackets so that the `-` operator applies to the result:
 
 ```{r}
@@ -184,17 +138,6 @@ The correct solution is to wrap `1:3` in brackets so that the `-` operator appli
 
 
 
-
-Above, we have only *printed* the results to the console. 
-
-To redefine `x`, we need to re-assign the variable to our result:
-
-```{r}
-# redefine x as x without the 4th element
-
-# print x
-
-```
 
 ::: {.callout}
 ## Challenge 1
@@ -211,33 +154,16 @@ Come up with at least 2 different commands that will produce the following outpu
 [1] 6.2 7.1 4.8
 ```
 
+and write them in the following code chunk
 
-After you find 2 different commands, compare notes with your neighbor. Did you have different strategies?
+```{r}
+# your answers:
+
+
+```
+
 
 :::
-
-
-
-::: {.callout}
-## Challenge 2
-
-Start by making a vector with the numbers 5 through 26. Then:
-
-- Print out the first three entries of the vector
-
-- Print out the fourth entry of the vector
-
-- Multiply the vector by 2.
-
-:::
-
-
-
-
-
-
-
-
 
 
 
@@ -262,7 +188,7 @@ Alternatively, these names can be assigned after defining the vector:
 ```{r}
 # define unnamed pizza price vector
 
-# assign the names to pizza price
+# assign the names to pizza price using "names()"
 
 # look at the result
 
@@ -282,7 +208,7 @@ Alternatively, these names can be assigned after defining the vector:
 To retrieve a named entry from a vector:
 
 ```{r}
-# extract the "pizzasubito" entry from pizza_price using named indexing
+# extract the first entry from the pizza price vector using named indexing
 
 ```
 
@@ -313,20 +239,6 @@ If you want to extract just the names of an object, use the `names()` function:
 
 
 
-We have seen how to access and change single elements of a vector. The same is
-possible for names:
-
-```{r}
-# print the third pizza_price name
-
-# change this third name of pizza_price to "call-a-pizza"
-
-# print out the new pizza_price vector
-
-```
-
-
-
 ::: {.callout}
 ## Challenge 3
 
@@ -353,48 +265,3 @@ What is the data type of the *names* of `pizza_price`?
 
 
 
-
-::: {.callout}
-
-## Challenge 5
-
-Instead of just changing the names of each element of a vector individually, you can
-also set all names of an object by writing code like (replace <ALL CAPS> text):
-
-```{r}
-#| eval: false
-names(OBJECT) <-  CHARACTER_VECTOR
-```
-
-Create a vector that gives the number for each letter in the alphabet!
-
-1. Generate a vector called `letter_no` with the sequence of numbers from 1 to 26
-2. R has a built-in object called `LETTERS` (type `LETTERS` in the console. It is a 26-character vector of uppercase letters from  A to Z. Set the names of `letter_no` to these 26 letters
-3. Test yourself by calling `letter_no["B"]`, which should give you the number 2!
-  
-:::
-
-
-
-
-
-
-
-
-
-
-### Removing named elements
-
-If we try to remove one named element by negating the string, R complains::
-
-```{r}
-#| error: true
-# define the vector x whose values are 5.4, 6.2, 7.1, 4.8, 7.5 with names a-e
-
-# try to remove entry "a" using the -"a" indexing syntax
-
-```
-
-
-
-We will discuss more examples of indexing in the next lesson.

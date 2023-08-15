@@ -17,7 +17,7 @@ We can install packages using `install.packages("packagename")`
 ```
 
 
-(Rather than saving this code, you can just run it directly in the console.)
+(Rather than saving this installation code, you should just run it directly in the console.)
 
 
 You only ever need to *install* a package once, but you need to *load* it every time you want to use it:
@@ -46,6 +46,10 @@ library(tidyverse)
 gapminder <- read.csv("data/gapminder_data.csv")
 # look at the first 6 rows
 head(gapminder)
+# check the dimension
+dim(gapminder)
+# look at the str
+str(gapminder)
 # check the unique values of continent
 unique(gapminder$continent)
 ```
@@ -55,7 +59,7 @@ Let's try to compute the average gdpPercap separately for each continent in the 
 
 ```{r}
 # compute the mean gdpPercap of Africa, Americas, Oceania, Europe, and Asia
-# using base R and logical row indexing
+# (using base R and logical row indexing)
 
 ```
 
@@ -82,7 +86,7 @@ Can we do this more neatly?
 
 4. `summarize()`: Compute summaries of the data in a data frame
 
-5. `group_by()`: compute functions separately across different levels of a categorical variable.
+5. `group_by()`: Compute functions separately across different levels of a categorical variable.
 
 
 
@@ -112,7 +116,7 @@ Can we do this more neatly?
 Select allows us to select a subset of the columns of our data frame
 
 ```{r}
-# Define `year_country_gdp` (year, country, and gdpPercap only) using select
+# Define `year_country_gdp` (containing year, country, and gdpPercap only) using select()
 
 # look at the head
 
@@ -125,15 +129,19 @@ Note the **lack of quotes** around the variables in select().
 
 
 
-### Renaming variables using select()
+### Renaming variables using select() and rename()
 
 ```{r}
-# Use select to rename `gdpPercap` to gdp_per_cap 
+# Use select() to rename `gdpPercap` to gdp_per_cap 
 
 ```
 
 
 
+```{r}
+# Use rename() to rename `gdpPercap` to gdp_per_cap 
+
+```
 
 
 
@@ -152,7 +160,8 @@ Note the **lack of quotes** around the variables in select().
 
 
 
-## The pipe `|>`
+## The pipe `|>` (originally `%>%`)
+
 
 Defining the pipe:
 
@@ -175,22 +184,6 @@ head(select(gapminder, year))
 ```
 
 
-Another example:
-
-```{r}
-mean(c(1, 5, 3))
-# rewrite the above code using the pipe
-
-```
-
-
-
-### The two pipes: `|>` and `%>%`
-
-```{r}
-# Rewrite the above code using the old pipe %>%
-
-```
 
 
 
@@ -222,34 +215,12 @@ head(select(gapminder, life_exp = lifeExp, gdp_per_cap = gdpPercap))
 
 
 
-### Renaming columns: rename() vs select()
-
-
-
-```{r}
-# use the `rename()` function to rename gdpPercap to gdp_per_capita
-
-```
-
-
-How does this compare with `select()`?
-
-```{r}
-# Replace rename() with select() in the above example. 
-# Predict the output
-
-```
-
-
-
-
-
 
 
 
 ## Filtering to rows using filter()
 
-Filter() allows us to subset the rows of our data frame using a logical condition. 
+filter() allows us to subset the rows of our data frame using a logical condition. 
 
 ```{r}
 # identify (using `$`) a logical condition for identifying which rows 
@@ -273,8 +244,9 @@ Filter() allows us to subset the rows of our data frame using a logical conditio
 Let's use the pipe to chain together `select()` and `filter()`:
 
 ```{r}
-# filter to the rows corresponding to Europe and then select just the 
-# year, country, gdpPercap columns, and then view just the head
+# filter to the rows corresponding to Europe 
+# then select just the year, country, gdpPercap columns
+# and then view the head
 
 ```
 
@@ -299,14 +271,15 @@ Two ways to provide multiple conditions with "and" (both must be true):
 ```
 
 
+
 How would you provide multiple conditions with "or" (at least one must be true)?
 
 
 ```{r}
 # Filter to United States or Canada in two different ways
-# option 1:
+# option 1 (using |):
 
-# option 2:
+# option 2 (using %in%):
 
 ```
 
@@ -318,8 +291,7 @@ How would you provide multiple conditions with "or" (at least one must be true)?
 ::: {.callout}
 ## Challenge 2
 
-Use piping to produce a data frame that contains the `lifeExp`, `country`
-and `year` columns for African countries in 2002.  
+Use piping to produce a data frame that contains the `lifeExp`, `country` and `year` columns for African countries in 2002.  
 
 Your data frame should have 52 rows and 3 columns (you can check this with `dim()`).
 
@@ -361,26 +333,6 @@ You can also modify existing columns using `mutate()`.
 
 
 
-### Combining `mutate()` and `select()` with `transmute()`
-
-Sometimes you want to both mutate and select at the same time. Rather than doing this in two separate steps, you can do it in one using `transmute()`. 
-
-```{r}
-gapminder |>
-  mutate(gdp_billion = gdpPercap * pop / 10^9) |>
-  select(country, year, gdp_billion) |>
-  head()
-
-# rewrite the above code using transmute
-
-```
-
-
-
-
-
-
-
 ::: {.callout}
 ## Challenge 3
 
@@ -413,7 +365,7 @@ You can compute summaries using `summarize()`
 
 ```
 
-You can even compute multiple summaries at once, e.g., computing both the max and minimum of the lifeExp variable:
+You can even compute multiple summaries at once
 
 ```{r}
 # compute the min, mean, and max life expectancy using summarize:
@@ -434,8 +386,7 @@ You can even compute multiple summaries at once, e.g., computing both the max an
 
 ## Grouped computations with group_by()
 
-Recall the code at the beginning of the lesson:
-
+One way to compute the mean gdpPercap for each continent using base R is:
 
 ```{r}
 mean(gapminder[gapminder$continent == "Africa", "gdpPercap"])
@@ -445,15 +396,7 @@ mean(gapminder[gapminder$continent == "Oceania", "gdpPercap"])
 mean(gapminder[gapminder$continent == "Europe", "gdpPercap"])
 ```
 
-We can rewrite this code using `summarize()`
-
-```{r}
-# rewrite each line of the above code using summarize
-
-```
-
-
-The `group_by()` function offers a nice approach for grouped operations on a data frame:
+We can rewrite this code using `summarize()` and `group_by()`
 
 ```{r}
 # rewrite the above code using group_by() and summarize() and ungroup afterwards
@@ -491,32 +434,13 @@ Note that the output is a "tibble"
 
 
 
-::: {.callout}
-## Challenge 4
-Use `group_by()`, `summarize()`, and `filter()` to identify which country has the longest average life expectancy and which has the shortest average life expectancy.
-
-Hint: The logical condition `x == min(x)` will return `TRUE` for the value of `x` that is smallest.
-
-:::
-
-
-
-
-
 ## Ordering the rows in a data frame using arrange()
 
 
-Another way to complete the previous challenge is to use `arrange()`:
-
-
 ```{r}
-# Compute the average life expectancy for each country
-
-
+# Compute the average life expectancy for each country using group_by()
 # Arrange the result in order of mean life expectancy using arrange()
 
-
-# Arrange in decreasing order:
 
 ```
 
@@ -536,21 +460,7 @@ What do you think will happen when we arrange using a character variable?
 
 
 
-## count() and n()
-
-
-`n()` is a function that we can use in most dplyr functions to count the number of rows in a data frame (or group, if the data frame is grouped).
-
-```{r} 
-# use `group_by()` and `summarize()` with `n()` to count the number of times each
-# continent occurs
-# then arrange in decreasing order
-
-```
-
-
-
-We could alternatively do this using the shortcut `count()` function:
+## count() 
 
 ```{r}
 # count the number of times each continent appears in the data using `count()`
@@ -561,13 +471,5 @@ We could alternatively do this using the shortcut `count()` function:
 
 
 
-
-::: {.callout}
-## Advanced Challenge
-
-Calculate the total GDP in billions (`gdpPercap * pop / 1e9`) for each continent in the year 2002 and in 2007. Which continent had the largest GDP in 2002? which had the smallest? What about in 2007?
-
-
-:::
 
 

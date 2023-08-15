@@ -8,9 +8,7 @@ editor_options:
 
 ## Datasets
 
-Let's start by using R to create a dataset, which we will then save in our `data/` directory in a file called `feline-data.csv`. 
-
-First, let's create the dataset in R using the `data.frame()` function:
+Let's create a dataset in R using the `data.frame()` function:
 
 ```{r}
 # define the cats data frame
@@ -20,7 +18,7 @@ cats_manual <- data.frame(coat = c("calico", "black", "tabby"),
 ```
 
 
-Rather than "manually" creating the cats data frame, it is often easier to load the `cats` dataset from the csv file:
+Rather than "manually" creating datasets as above, more often you will need to load your data from a csv file stored "locally" on your computer:
 
 ```{r}
 # load the cats data frame from the "data/feline-data.csv" csv file
@@ -203,7 +201,6 @@ What about the following vectors:
 
 ```{r}
 # a vector containing "a" and TRUE
-
 
 # a vector containing 0 and TRUE
 
@@ -437,7 +434,7 @@ If we convert `coat` to a numeric type, it replaces each level with a number:
 But if the factor levels are themselves numbers, the numeric information gets lost:
 
 ```{r}
-# Create a factor version of the weight column
+# create a factor version of the weight column
 
 # convert the factor weight column vector to a numeric vector
 
