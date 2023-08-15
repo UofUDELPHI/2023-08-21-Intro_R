@@ -6,6 +6,39 @@ editor_options:
 ---
 
 
+
+
+## R Packages
+
+We can install packages using `install.packages("packagename")`
+
+```{r}
+# install the tidyverse package
+```
+
+
+(Rather than saving this code, you can just run it directly in the console.)
+
+
+You only ever need to *install* a package once, but you need to *load* it every time you want to use it:
+
+```{r}
+# load the tidyverse package
+
+```
+
+
+
+::: {.callout} 
+## Challenge 5
+Install and load the `dplyr` and `ggplot2` R packages.
+
+:::
+
+
+
+
+
 ```{r}
 #| message: false
 library(tidyverse)

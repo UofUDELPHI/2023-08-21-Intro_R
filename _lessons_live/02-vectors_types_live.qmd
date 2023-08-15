@@ -13,24 +13,21 @@ First, let's create the dataset in R using the `data.frame()` function:
 
 ```{r}
 # define the cats data frame
-cats <- data.frame(coat = c("calico", "black", "tabby"),
-                    weight = c(2.1, 5.0, 3.2),
-                    likes_string = c(1, 0, 1))
+cats_manual <- data.frame(coat = c("calico", "black", "tabby"),
+                          weight = c(2.1, 5.0, 3.2),
+                          likes_string = c(1, 0, 1))
 ```
 
-Saving `cats` as a .csv file:
 
-```{r}
-# save the cats data frame as a local csv file
-write.csv(x = cats, file = "data/feline-data.csv", row.names = FALSE)
-```
-
-Loading the `cats` dataset from the csv file:
+Rather than "manually" creating the cats data frame, it is often easier to load the `cats` dataset from the csv file:
 
 ```{r}
 # load the cats data frame from the csv file
+# call it "cats"
 
 ```
+
+
 
 ## Working with `cats`
 
@@ -38,9 +35,9 @@ Let's extract some columns from `cats`:
 
 ```{r}
 # extract the weight column using `$`
-cats$weight
+
 # extract the coat column using `$`
-cats$coat
+
 ```
 
 Each column in `cats` is a *vector*. 
@@ -49,20 +46,20 @@ There are lots of operations that we can do on vectors, such as:
 
 ```{r}
 # add 2 to the weight vector
-cats$weight + 2
+
 ```
 
 ```{r}
 # multiply the weight and likes_string vectors together
-cats$weight * cats$likes_string
+
 ```
 
 But what about:
 
 ```{r}
 #| error: true
-# add the weight and coat vectors together:
-cats$weight + cats$coat
+# try to add the weight and coat vectors together:
+
 ```
 
 What happened?
@@ -89,7 +86,7 @@ We can ask what type or "class" or "type" of data something is:
 
 ```{r}
 # check the class() of the weight column
-class(cats$weight)
+
 ```
 
 
@@ -116,10 +113,16 @@ Let's identify the class of several values:
 ```
 
 
-Let's look at another version of the cats data with an extra row:
+Let's look at another version of the cats data that has an extra row:
 
-```{r, eval=FALSE}
-# read in "data/feline-data_v2.csv"
+```{r}
+# read in "data/feline-data_v2.csv", save it as "cats2"
+
+```
+
+
+```{r}
+# print out the new cats dataset
 
 ```
 
@@ -129,20 +132,6 @@ Let's check the class of the `weight` column
 # check the class of the weight column
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 The weight column is no longer numeric!
