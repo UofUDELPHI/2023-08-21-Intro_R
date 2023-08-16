@@ -1,0 +1,94 @@
+---
+title: "An analysis of global life expectancy"
+author: "Rebecca Barter"
+format: html
+editor_options: 
+  chunk_output_type: console
+embed-resources: true
+toc: true
+toc-location: right
+---
+
+Below, we load in the gapminder dataset that we will use for analysis in this document.
+
+```{r}
+#| warning: false
+#| message: false
+library(tidyverse)
+library(gt) 
+library(knitr)
+gapminder <- read.csv("data/gapminder.csv")
+```
+
+## Evaluating life expectancy by continent
+
+
+The table below shows the average life expectancy every 5 years for each continent.
+
+```{r}
+#| warning: false
+#| label: tbl-life-exp
+#| tbl-cap: "Table describing the average life expectancy over time"
+life_exp <- gapminder |> 
+  group_by(year, continent) |>
+  summarise(mean_life_exp = round(mean(lifeExp), 1)) |>
+  ungroup()
+  
+
+life_exp |> 
+  pivot_wider(id_cols = "year", 
+              values_from = "mean_life_exp", 
+              names_from = "continent") |>
+  kable()
+
+```
+
+
+We can visualize these trends for each country in the line plot below:
+
+```{r}
+life_exp |> ggplot(aes(x = year, y = mean_life_exp, color = continent)) + 
+  geom_line() +
+  geom_point(shape = 1) +
+  labs(x = "Year", y = "Average life expectancy", color = "Continent") + 
+  theme_bw() 
+```
+
+
+Notice that the trends are increasing overall, with Oceania having the highest life expectancy and Africa having the lowest. Unlike the other continents, the life expectancy for African countries are stagnating around 1990, but started to increase again around 2007.
+
+## Measuring life expectancy against GDP
+
+The scatterplot below shows the relationship between GDP per capita and life expectancy in 2007, colored by continent. 
+
+```{r}
+#| label: fig-scatter
+#| fig-cap: "A scatterplot of GDP per capita against life expectancy"
+gg_scatter <- gapminder |>
+  filter(year == 2007) |>
+  ggplot() +
+  geom_point(aes(x = gdpPercap, y = lifeExp, 
+                 color = continent, size = pop),
+             alpha = 0.5) +
+  scale_size_continuous("Population", 
+                        labels = c("1 million", "250 million", "1 billion"),  
+                        breaks = c(1, 250, 1000) * 1e6) +
+  labs(x = "GDP per capita", y = "Life expectancy", color = "Continent") +
+  theme_bw()
+gg_scatter
+```
+
+
+It seems that overall, the higher the GDP per capita, the higher the life expectancy.
+
+
+This look a like an exponential relationship. In Figure @fig-scatter-log, we convert the x-axis to a log-scale.
+
+
+
+```{r}
+#| label: fig-scatter-log
+#| fig-cap: "A scatterplot of GDP per capita against life expectancy, with the x-axis presented on a log-scale."
+gg_scatter + scale_x_log10()
+```
+
